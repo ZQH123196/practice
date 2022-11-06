@@ -1,11 +1,51 @@
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-# https://github.com/takari/maven-wrapper#usage-without-binary-jar
-.mvn/wrapper/maven-wrapper.jar
+# frontend
+**/node_modules/
+**/dist/
+CONTRIBUTING.md
+npm-debug.log
+yarn-debug.log*
+yarn-error.log*
+yarn.lock
+package-lock.json
+.vscode
+
+######################################################################
+# Build Tools
+
+.gradle
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+**/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+######################################################################
+# IDE
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+######################################################################
+# Others
+*.log
+*.xml.versionsBackup
+*.swp
+
+!*/build/*.java
+!*/build/*.html
+!*/build/*.xml
+
+
+## database
+**/*.db

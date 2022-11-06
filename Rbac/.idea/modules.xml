@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Rbac.iml" filepath="$PROJECT_DIR$/.idea/Rbac.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/Rbac/Rbac0/Rbac0.iml" filepath="$PROJECT_DIR$/java/Rbac/Rbac0/Rbac0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/Rbac/Rbac0WithGroup/Rbac0WithGroup.iml" filepath="$PROJECT_DIR$/java/Rbac/Rbac0WithGroup/Rbac0WithGroup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/Rbac/Rbac1/Rbac1.iml" filepath="$PROJECT_DIR$/java/Rbac/Rbac1/Rbac1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/Rbac/RbacRoot.iml" filepath="$PROJECT_DIR$/java/Rbac/RbacRoot.iml" />
+    </modules>
+  </component>
+</project>

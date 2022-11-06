@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Rbac0WithGroup" />
+        <module name="Rbac1" />
+        <module name="Rbac0" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Rbac0" target="1.8" />
+      <module name="Rbac0WithGroup" target="1.8" />
+      <module name="Rbac1" target="1.8" />
+      <module name="RbacRoot" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Rbac0" options="-parameters" />
+      <module name="Rbac0WithGroup" options="-parameters" />
+      <module name="Rbac1" options="-parameters" />
+    </option>
+  </component>
+</project>
