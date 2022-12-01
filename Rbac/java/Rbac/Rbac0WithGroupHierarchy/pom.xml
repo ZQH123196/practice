@@ -3,16 +3,10 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
-    <artifactId>Rbac0WithDatascope</artifactId>
+    <artifactId>Rbac0WithGroupHierarchy</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Rbac0WithDatascope</name>
-    <description>Rbac0WithDatascope</description>
-    <parent>
-        <groupId>com.example</groupId>
-        <artifactId>RbacRoot</artifactId>
-        <version>${revision}</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
+    <name>Rbac0WithGroupHierarchy</name>
+    <description>Rbac0WithGroupHierarchy</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -24,25 +18,9 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -85,7 +63,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>com.example.rbac0withdatascope.Rbac0WithDatascopeApplication</mainClass>
+                    <mainClass>com.example.rbac0withgrouphierarchy.Rbac0WithGroupHierarchyApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

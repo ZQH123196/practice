@@ -1,4 +1,4 @@
-USE `rbac0WithDatascope`;
+USE `rbac0withgroup`;
 
 INSERT INTO role (role) VALUES ('admin');
 INSERT INTO role (role) VALUES ('test1');
@@ -19,8 +19,16 @@ INSERT INTO permission (id, expression) VALUES (1, 'system:role:create');
 
 
 
-INSERT INTO role_hierarchy (role, parent_role_id) VALUES ('admin', null);
-INSERT INTO role_hierarchy (role, parent_role_id) VALUES ('level1', 'admin');
-INSERT INTO role_hierarchy (role, parent_role_id) VALUES ('level2', 'level1');
-INSERT INTO role_hierarchy (role, parent_role_id) VALUES ('level3', 'level2');
-INSERT INTO role_hierarchy (role, parent_role_id) VALUES ('level4', 'level3');
+
+INSERT INTO role_group_admin (`group`) VALUES ('groupAdminGroup');
+UPDATE role_group_admin SET roles='admin', users='testUser1' WHERE `group`='groupAdminGroup';
+
+
+
+INSERT INTO user_group_admin (`group`) VALUES ('userAdminGroup');
+UPDATE user_group_admin SET roles='admin', users='testUser3!@@!testUser4' WHERE `group`='userAdminGroup';
+
+
+
+
+
