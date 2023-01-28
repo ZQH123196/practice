@@ -18,7 +18,7 @@
         <module>rbac0withresource</module>
         <module>Rbac0WithHierarchy</module>
         <module>Rbac0WithGroup</module>
-        <module>Rbac0WithGroupHierarchy</module>
+        <module>Rbac0WithDatascope</module>
         <module>Rbac1</module>
         <module>Utils</module>
     </modules>

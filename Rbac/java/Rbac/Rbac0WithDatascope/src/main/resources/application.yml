@@ -1,0 +1,14 @@
+
+
+spring:
+  profiles:
+    active: dev
+
+
+
+auth:
+  http:
+    head:
+      authTokenHeadName: authorization
+      loginName: username
+      loginPass: password

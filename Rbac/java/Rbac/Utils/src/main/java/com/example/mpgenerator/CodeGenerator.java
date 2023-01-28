@@ -90,7 +90,7 @@ public class CodeGenerator {
                         .parent(PARENT_PACKAGE_NAME)
                         .moduleName(scanner.apply("请输入模块名："))
                         // mapper.xml 文件的路径。单模块下，其他文件路径默认即可。
-                        .pathInfo(Collections.singletonMap(OutputFile.mapperXml, mapperXmlPath))
+                        .pathInfo(Collections.singletonMap(OutputFile.mapper, mapperXmlPath))
                 )
 
                 // 3. 策略配置
@@ -203,7 +203,7 @@ public class CodeGenerator {
                                     // mapper接口的保存路径
                                     put(OutputFile.mapper, mapperPath);
                                     // mapper.xml文件的保存路径
-                                    put(OutputFile.mapperXml, mapperXmlPath);
+                                    put(OutputFile.xml, mapperXmlPath);
                                     // service层接口的保存路径
                                     put(OutputFile.service, servicePath);
                                     // service层接口实现类的保存路径
