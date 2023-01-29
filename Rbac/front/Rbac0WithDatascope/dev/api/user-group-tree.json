@@ -1,0 +1,23 @@
+{
+    "TreeNodeVoList": [
+        {
+            "userGroupId": 100,
+            "nodeName": "A",
+            "nodePath": "A",
+            "children": [
+                {
+                    "userGroupId": 101,
+                    "nodeName": "B",
+                    "nodePath": "AB",
+                    "children": [
+                        {
+                            "userGroupId": 102,
+                            "nodeName": "C",
+                            "nodePath": "ABC"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
