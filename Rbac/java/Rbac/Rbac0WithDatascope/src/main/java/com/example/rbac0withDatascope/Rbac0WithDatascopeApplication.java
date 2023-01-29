@@ -8,15 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.annotation.Resource;
 
 @SpringBootApplication
-public class Rbac0WithDatascopeApplication implements ApplicationRunner {
+public class Rbac0WithDatascopeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(Rbac0WithDatascopeApplication.class, args);
     }
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-    }
+
 
 
 }

@@ -2,20 +2,20 @@ package com.example.rbac0withDatascope.service;
 
 import com.example.rbac0withDatascope.datascope.annotation.Datascope;
 import com.example.rbac0withDatascope.service.vo.MultipleUserGroupTree;
-import com.example.rbac0withDatascope.bff.vo.UserTreeList;
+import com.example.rbac0withDatascope.controller.bff.vo.UserTreeList;
 import com.example.rbac0withDatascope.dao.entity.UserGroupHierarchy;
-import com.example.rbac0withDatascope.service.vo.TreeNodeVo;
+import com.example.rbac0withDatascope.service.vo.UserGroupNodeVo;
 
 
 import java.util.List;
 import java.util.Set;
 
-public interface IUserGroupDatascopeService {
+public interface IDatascope4UserGroupService {
 
     /**
-     * 获取所有树，跟 getMultipleTree 区别在于返回的类型是 bff.vo 下的
+     * 获取所有树，跟 getMultipleTree 区别在于返回的类型是 BffService.vo 下的
      * 也就是只为了返回前端进行了再次整形，
-     * TODO 可移除，使用 getMultipleTree 替代
+     * TODO：待修改，与实现高度耦合，应当分离，并移动到 bffservice
      * @return
      */
     @Datascope
@@ -40,7 +40,7 @@ public interface IUserGroupDatascopeService {
      * @return
      */
     @Datascope
-    Set<TreeNodeVo> getUserGroupHierarchyByUserId(Integer userId);
+    Set<UserGroupNodeVo> getUserGroupHierarchyByUserId(Integer userId);
 
     /**
      * 获取目标节点的所有子树，也可用于获取一棵树的全部
@@ -48,7 +48,7 @@ public interface IUserGroupDatascopeService {
      * @return
      */
     @Datascope
-    List<TreeNodeVo> getTargetNodeChildren(String nodeName);
+    List<UserGroupNodeVo> getTargetNodeChildren(String nodeName);
 
     /**
      * 根据根节点获取树
@@ -57,7 +57,7 @@ public interface IUserGroupDatascopeService {
      * @return
      */
     @Datascope
-    List<TreeNodeVo> getTreeByRoot(String rootName);
+    List<UserGroupNodeVo> getTreeByRoot(String rootName);
 
     /**
      * 获取一颗树的任意某一层级

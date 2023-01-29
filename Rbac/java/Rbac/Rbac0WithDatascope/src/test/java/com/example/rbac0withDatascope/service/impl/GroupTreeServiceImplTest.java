@@ -2,9 +2,9 @@ package com.example.rbac0withDatascope.service.impl;
 
 import com.example.rbac0withDatascope.Initial.GlobalUserGroupHierarchy;
 import com.example.rbac0withDatascope.dao.entity.UserGroupHierarchy;
-import com.example.rbac0withDatascope.service.IUserGroupDatascopeService;
+import com.example.rbac0withDatascope.service.IDatascope4UserGroupService;
 import com.example.rbac0withDatascope.service.vo.MultipleUserGroupTree;
-import com.example.rbac0withDatascope.service.vo.TreeNodeVo;
+import com.example.rbac0withDatascope.service.vo.UserGroupNodeVo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ import java.util.List;
 class GroupTreeServiceImplTest {
 
     @Resource
-    IUserGroupDatascopeService treeListService;
+    IDatascope4UserGroupService treeListService;
 
     @Resource
     ObjectMapper objectMapper;
@@ -48,6 +48,8 @@ class GroupTreeServiceImplTest {
     }
 
 
+
+
     @Test
     void getAllMultipleTree() throws JsonProcessingException {
         MultipleUserGroupTree multipleUserGroupTree = treeListService.getAllMultipleTree();
@@ -55,14 +57,21 @@ class GroupTreeServiceImplTest {
         log.info(jsonStr);
     }
 
-    @Test
-    void getTargetNodeChildren() {
+    /**
+     * 前端点击树的某个节点时用到
+     */
+    @ParameterizedTest
+    @ValueSource(strings = { "A", "B", "C" })
+    void getTargetNodeChildren(String nodeName) throws JsonProcessingException {
+        List<UserGroupNodeVo> targetNodeChildren = treeListService.getTargetNodeChildren(nodeName);
+        String jsonStr = objectMapper.writeValueAsString(targetNodeChildren);
+        log.info(jsonStr);
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"A"})
     void getTreeByRoot(String rootName) throws JsonProcessingException {
-        List<TreeNodeVo> newTreeNodeList = treeListService.getTreeByRoot(rootName);
+        List<UserGroupNodeVo> newTreeNodeList = treeListService.getTreeByRoot(rootName);
         MultipleUserGroupTree multipleUserGroupTree = MultipleUserGroupTree.builder().treeNodeVoList(newTreeNodeList).build();
         String jsonStr = objectMapper.writeValueAsString(multipleUserGroupTree);
 

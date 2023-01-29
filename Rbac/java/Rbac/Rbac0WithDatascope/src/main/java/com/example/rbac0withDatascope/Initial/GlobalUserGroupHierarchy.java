@@ -1,13 +1,11 @@
 package com.example.rbac0withDatascope.Initial;
 
-import com.example.rbac0withDatascope.service.IUserGroupDatascopeService;
+import com.example.rbac0withDatascope.service.IDatascope4UserGroupService;
 import com.example.rbac0withDatascope.service.vo.MultipleUserGroupTree;
-import lombok.Data;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -23,7 +21,7 @@ import javax.annotation.Resource;
 @Slf4j
 public class GlobalUserGroupHierarchy implements BeanPostProcessor {
     @Resource
-    private IUserGroupDatascopeService userGroupDatascopeService;
+    private IDatascope4UserGroupService userGroupDatascopeService;
 
     @Getter
     private MultipleUserGroupTree multipleUserGroupTree;

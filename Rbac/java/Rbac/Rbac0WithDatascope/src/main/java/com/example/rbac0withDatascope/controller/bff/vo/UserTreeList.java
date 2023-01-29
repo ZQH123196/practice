@@ -1,4 +1,4 @@
-package com.example.rbac0withDatascope.bff.vo;
+package com.example.rbac0withDatascope.controller.bff.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

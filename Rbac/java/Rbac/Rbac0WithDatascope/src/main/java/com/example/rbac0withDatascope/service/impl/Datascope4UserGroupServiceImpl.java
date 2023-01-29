@@ -3,15 +3,15 @@ package com.example.rbac0withDatascope.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.example.rbac0withDatascope.bff.vo.UserTreeList;
+import com.example.rbac0withDatascope.controller.bff.vo.UserTreeList;
 import com.example.rbac0withDatascope.dao.entity.UserUsergroup;
 import com.example.rbac0withDatascope.dao.service.IUserGroupHierarchyService;
 import com.example.rbac0withDatascope.dao.service.IUserGroupService;
 import com.example.rbac0withDatascope.dao.service.IUserUsergroupService;
-import com.example.rbac0withDatascope.service.IUserGroupDatascopeService;
+import com.example.rbac0withDatascope.service.IDatascope4UserGroupService;
 import com.example.rbac0withDatascope.service.vo.MultipleUserGroupTree;
-import com.example.rbac0withDatascope.service.vo.TreeNodeVo;
-import com.example.rbac0withDatascope.bff.vo.UsergroupTreeNodeVoList;
+import com.example.rbac0withDatascope.service.vo.UserGroupNodeVo;
+import com.example.rbac0withDatascope.controller.bff.vo.UsergroupTreeNodeVoList;
 import com.example.rbac0withDatascope.dao.entity.UserGroup;
 import com.example.rbac0withDatascope.dao.entity.UserGroupHierarchy;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ import java.util.Set;
  */
 @Service
 @Slf4j
-public class UserGroupDatascopeServiceImpl implements IUserGroupDatascopeService {
+public class Datascope4UserGroupServiceImpl implements IDatascope4UserGroupService {
 
     @Resource
     IUserGroupHierarchyService userGroupHierarchyService;
@@ -65,39 +65,41 @@ public class UserGroupDatascopeServiceImpl implements IUserGroupDatascopeService
         List<UserGroupHierarchy> rootList = userGroupHierarchyService.list(wrapper);
 
 
-        List<TreeNodeVo> treeNodeVoMapList = new ArrayList<>();
+        List<UserGroupNodeVo> userGroupNodeVoMapList = new ArrayList<>();
         for (UserGroupHierarchy treeNode : rootList) {
-            TreeNodeVo treeNodeList = getTreeNodeVoList(treeNode.getNodeName());
-            treeNodeVoMapList.add(treeNodeList);
+            UserGroupNodeVo treeNodeList = getTreeNodeVoList(treeNode.getNodeName());
+            userGroupNodeVoMapList.add(treeNodeList);
         }
-        MultipleUserGroupTree multipleUserGroupTree = MultipleUserGroupTree.builder().treeNodeVoList(treeNodeVoMapList).build();
+        MultipleUserGroupTree multipleUserGroupTree = MultipleUserGroupTree.builder().treeNodeVoList(userGroupNodeVoMapList).build();
         return multipleUserGroupTree;
     }
 
 
     @Override
-    public Set<TreeNodeVo> getUserGroupHierarchyByUserId(Integer userId) {
+    public Set<UserGroupNodeVo> getUserGroupHierarchyByUserId(Integer userId) {
         LambdaQueryWrapper<UserUsergroup> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(UserUsergroup::getUserId, userId);
         List<UserUsergroup> userGroupsRelation = userUsergroupService.list(wrapper);
-        Set<TreeNodeVo> treeNodeVoSet = new HashSet<>();
+        Set<UserGroupNodeVo> userGroupNodeVoSet = new HashSet<>();
         for (UserUsergroup relation : userGroupsRelation) {
-            treeNodeVoSet.addAll(getTargetNodeChildren(relation.getUserGroupId()));
+            userGroupNodeVoSet.addAll(getTargetNodeChildren(relation.getUserGroupId()));
         }
-        return treeNodeVoSet;
-    };
+        return userGroupNodeVoSet;
+    }
+
+    ;
 
 
     @Override
-    public List<TreeNodeVo> getTargetNodeChildren(String nodeName) {
-        List<TreeNodeVo> newTreeNodeList = new ArrayList<>();
+    public List<UserGroupNodeVo> getTargetNodeChildren(String nodeName) {
+        List<UserGroupNodeVo> newTreeNodeList = new ArrayList<>();
         newTreeNodeList.add(getTreeNodeVoList(nodeName));
         return newTreeNodeList;
     }
 
 
     @Override
-    public List<TreeNodeVo> getTreeByRoot(String rootName) {
+    public List<UserGroupNodeVo> getTreeByRoot(String rootName) {
         return getTargetNodeChildren(rootName);
     }
 
@@ -125,16 +127,17 @@ public class UserGroupDatascopeServiceImpl implements IUserGroupDatascopeService
     /**
      * 将第一个作为 root
      * 自动根据 root 将剩下 list 中的关联关系排好，跟 root 没有关联的就丢弃
+     *
      * @param treeNodeList
      * @return
      */
-    private TreeNodeVo toTreeNodeVo(List<UserGroupHierarchy> treeNodeList) {
+    private UserGroupNodeVo toTreeNodeVo(List<UserGroupHierarchy> treeNodeList) {
 
         UserGroupHierarchy rootNode = treeNodeList.get(0);
         treeNodeList.remove(0);
-        TreeNodeVo rootNodeVo = new TreeNodeVo(rootNode);
+        UserGroupNodeVo rootNodeVo = new UserGroupNodeVo(rootNode);
 
-        List<TreeNodeVo> childNode = getChildNode(rootNodeVo, treeNodeList);
+        List<UserGroupNodeVo> childNode = getChildNode(rootNodeVo, treeNodeList);
         rootNodeVo.setChildren(childNode);
         recursionSetChildWithEffect(rootNodeVo, treeNodeList);
 
@@ -186,6 +189,7 @@ public class UserGroupDatascopeServiceImpl implements IUserGroupDatascopeService
 
     /**
      * 根据 targetNode，将 treeNodeList 内的值都挂载为其子树
+     *
      * @param targetNode
      * @param treeNodeList
      */
@@ -200,31 +204,25 @@ public class UserGroupDatascopeServiceImpl implements IUserGroupDatascopeService
     }
 
 
-    private static List<TreeNodeVo> getChildNode(TreeNodeVo targetNode, List<UserGroupHierarchy> treeNodeList) {
+    private static List<UserGroupNodeVo> getChildNode(UserGroupNodeVo targetNode, List<UserGroupHierarchy> treeNodeList) {
         // 路径枚举中包含这个值并且这个值是倒数第二位，就说明是有父子关系
-        List<TreeNodeVo> childNodeList = new ArrayList<>();
+        List<UserGroupNodeVo> childNodeList = new ArrayList<>();
         for (UserGroupHierarchy treeNode : treeNodeList) {
             Long userGroupId = treeNode.getUserGroupId();
             String nodeName = treeNode.getNodeName();
             String pathString = treeNode.getPathEnum();
             if (pathString.substring(pathString.length() - 2, pathString.length() - 1).equals(targetNode.getNodeName())) {
-                childNodeList.add(TreeNodeVo
-                        .builder()
-                        .userGroupId(userGroupId)
-                        .nodeName(nodeName)
-                        .nodePath(pathString)
-                        .build()
-                );
+                childNodeList.add(new UserGroupNodeVo(userGroupId, nodeName, pathString));
             }
         }
         return childNodeList;
     }
 
-    private void recursionSetChildWithEffect(TreeNodeVo targetNode, List<UserGroupHierarchy> treeNodeList) {
-        List<TreeNodeVo> childNode = getChildNode(targetNode, treeNodeList);
+    private void recursionSetChildWithEffect(UserGroupNodeVo targetNode, List<UserGroupHierarchy> treeNodeList) {
+        List<UserGroupNodeVo> childNode = getChildNode(targetNode, treeNodeList);
         targetNode.setChildren(childNode);
-        for (TreeNodeVo treeNodeVo : childNode) {
-            recursionSetChildWithEffect(treeNodeVo, treeNodeList);
+        for (UserGroupNodeVo userGroupNodeVo : childNode) {
+            recursionSetChildWithEffect(userGroupNodeVo, treeNodeList);
         }
     }
 
@@ -241,15 +239,15 @@ public class UserGroupDatascopeServiceImpl implements IUserGroupDatascopeService
         return treeNodeVoList;
     }
 
-    private TreeNodeVo getTreeNodeVoList(String nodeName) {
+    private UserGroupNodeVo getTreeNodeVoList(String nodeName) {
         QueryWrapper<UserGroupHierarchy> wrapper = Wrappers.<UserGroupHierarchy>query()
                 .like(pathEnumLabel, nodeName)
                 .orderByAsc(lenPath);
         List<UserGroupHierarchy> treeNodeList = userGroupHierarchyService.list(wrapper);
 
-        TreeNodeVo treeNodeVo = toTreeNodeVo(treeNodeList);
+        UserGroupNodeVo userGroupNodeVo = toTreeNodeVo(treeNodeList);
 
 
-        return treeNodeVo;
+        return userGroupNodeVo;
     }
 }

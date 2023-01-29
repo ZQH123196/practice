@@ -56,12 +56,12 @@ import java.util.List;
 public class MultipleUserGroupTree {
 
 
-    @JsonProperty("TreeNodeVo")
+    @JsonProperty("UserGroupNodeVo")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<TreeNodeVo> treeNodeVo;
+    private List<UserGroupNodeVo> userGroupNodeVo;
 
-    MultipleUserGroupTree(List<TreeNodeVo> treeNodeVo) {
-        this.treeNodeVo = treeNodeVo;
+    MultipleUserGroupTree(List<UserGroupNodeVo> userGroupNodeVo) {
+        this.userGroupNodeVo = userGroupNodeVo;
     }
 
     public static MultipleTreeBuilder builder() {
@@ -70,22 +70,22 @@ public class MultipleUserGroupTree {
 
 
     public static class MultipleTreeBuilder {
-        private List<TreeNodeVo> treeNodeVo;
+        private List<UserGroupNodeVo> userGroupNodeVo;
 
         MultipleTreeBuilder() {
         }
 
-        public MultipleTreeBuilder treeNodeVoList(List<TreeNodeVo> treeNodeVo) {
-            this.treeNodeVo = treeNodeVo;
+        public MultipleTreeBuilder treeNodeVoList(List<UserGroupNodeVo> userGroupNodeVo) {
+            this.userGroupNodeVo = userGroupNodeVo;
             return this;
         }
 
         public MultipleUserGroupTree build() {
-            return new MultipleUserGroupTree(treeNodeVo);
+            return new MultipleUserGroupTree(userGroupNodeVo);
         }
 
         public String toString() {
-            return "MultipleUserGroupTree.MultipleTreeBuilder(treeNodeVo=" + this.treeNodeVo + ")";
+            return "MultipleUserGroupTree.MultipleTreeBuilder(userGroupNodeVo=" + this.userGroupNodeVo + ")";
         }
     }
 }

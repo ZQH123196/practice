@@ -11,8 +11,8 @@ import com.example.rbac0withDatascope.dao.entity.UserUsergroup;
 import com.example.rbac0withDatascope.dao.service.IUserUsergroupService;
 import com.example.rbac0withDatascope.datascope.servletconf.webcontext.PerThreadUserContext;
 import com.example.rbac0withDatascope.datascope.servletconf.webcontext.UserContext;
-import com.example.rbac0withDatascope.service.IUserGroupDatascopeService;
-import com.example.rbac0withDatascope.service.vo.TreeNodeVo;
+import com.example.rbac0withDatascope.service.IDatascope4UserGroupService;
+import com.example.rbac0withDatascope.service.vo.UserGroupNodeVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -34,7 +34,7 @@ public class DatascopeInterceptor implements InnerInterceptor {
     IUserUsergroupService userUsergroupService;
 
     @Resource
-    IUserGroupDatascopeService userGroupDatascopeService;
+    IDatascope4UserGroupService userGroupDatascopeService;
 
     /**
      * 数据库类型
@@ -67,6 +67,7 @@ public class DatascopeInterceptor implements InnerInterceptor {
                 userContext.setDatascopeFlag(true);
             }
 
+            // 生成 in (...manageUserPerm)
             String rawSql = boundSql.getSql();
             String datascopeSql = addDatascopeLimit2Sql(rawSql);
 
@@ -90,9 +91,9 @@ public class DatascopeInterceptor implements InnerInterceptor {
         Set<Integer> userGroupIdSet = new HashSet<>();
 
         for (UserUsergroup userUsergroup : userUsergroups) {
-            List<TreeNodeVo> treeNodeVos = userGroupDatascopeService.getTargetNodeChildren(userUsergroup.getUserGroupId());
+            List<UserGroupNodeVo> userGroupNodeVos = userGroupDatascopeService.getTargetNodeChildren(userUsergroup.getUserGroupId());
             // TODO walkNode4lambda
-//            userGroupIdSet.addAll(treeNodeVos);
+//            userGroupIdSet.addAll(userGroupNodeVos);
         }
         // 3、根据这些用户组，获取其包含的全部用户
 

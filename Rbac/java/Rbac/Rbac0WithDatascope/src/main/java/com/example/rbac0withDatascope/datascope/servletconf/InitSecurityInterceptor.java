@@ -2,9 +2,7 @@ package com.example.rbac0withDatascope.datascope.servletconf;
 
 import com.example.rbac0withDatascope.dao.entity.User;
 import com.example.rbac0withDatascope.datascope.servletconf.webcontext.PerThreadUserContext;
-import com.example.rbac0withDatascope.datascope.servletconf.webcontext.UserContext;
-import com.example.rbac0withDatascope.service.IUserGroupDatascopeService;
-import com.example.rbac0withDatascope.service.vo.TreeNodeVo;
+import com.example.rbac0withDatascope.service.IDatascope4UserGroupService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
@@ -16,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Set;
 
 
 @Component
@@ -32,7 +29,7 @@ public class InitSecurityInterceptor implements HandlerInterceptor {
 
 
     @Resource
-    private IUserGroupDatascopeService userGroupDatascopeService;
+    private IDatascope4UserGroupService userGroupDatascopeService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -47,14 +44,12 @@ public class InitSecurityInterceptor implements HandlerInterceptor {
     }
 
 
-
     private void initUserContext(HttpServletRequest request) {
         User user = getUserByReq(request);
-        Set<TreeNodeVo> treeNodeVo = userGroupDatascopeService.getUserGroupHierarchyByUserId(user.getId());
-        UserContext userContext = new UserContext();
-        userContext.setUser(user);
-        userContext.getManageUserPerm().addAll(treeNodeVo);
-        PerThreadUserContext.getUserContext().set(userContext);
+//        Set<UserGroupNodeVo> userGroupNodeVo = userGroupDatascopeService.getUserGroupHierarchyByUserId(user.getId());
+//        UserContext userContext = new UserContext();
+//        userContext.setUser(user);
+//        userContext.getManageUserPerm().addAll(userGroupNodeVo);
     }
 
     private User getUserByReq(HttpServletRequest request) {

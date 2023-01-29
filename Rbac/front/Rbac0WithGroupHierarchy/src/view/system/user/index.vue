@@ -17,7 +17,7 @@ const defaultProps = {
     label: "label",
 };
 
-let tree4FrontData: TreeNode4Front | [] = [];
+let tree4FrontData: TreeNode4Front[] = [];
 
 // const srcJson = {
 //     TreeNodeVoList: [
