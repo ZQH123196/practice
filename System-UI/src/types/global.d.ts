@@ -1,0 +1,7 @@
+
+
+declare namespace job {
+
+
+    
+}
