@@ -20,12 +20,12 @@ public class CodeGenerator {
     /**
      * 数据库连接字符
      */
-    private static final String URL = "jdbc:mysql://localhost:3306/Rbac0WithGroupHierarchy";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/test?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC";
 
     /**
      * 示例：private static final String PARENT_PACKAGE_NAME = "com.example.rbac0withgrouphierarchy.dao";
      */
-    private static final String PARENT_PACKAGE_NAME = "com.example.rbac0withgrouphierarchy.dao";
+    private static final String PARENT_PACKAGE_NAME = "com.example.mpsimple.dao";
 
     /**
      * 数据库用户名
@@ -38,7 +38,7 @@ public class CodeGenerator {
     /**
      * 生成位置
      */
-    private static final String PROJECT_ROOT_PATH = "E:\\Code\\Porject\\practice\\Rbac\\java\\Rbac\\Rbac0WithGroupHierarchy";
+    private static final String PROJECT_ROOT_PATH = "D:\\Code\\Project\\basic\\Java\\mybatis\\Mp_Simple\\";
 
     /**
      * 执行此处

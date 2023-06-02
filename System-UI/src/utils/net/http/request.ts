@@ -1,6 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from "axios";
 import qs from 'qs';
-import NProgress from 'nprogress';
 import { UrlJob } from "@/types/global";
 import { ElMessage } from "element-plus";
 
@@ -64,6 +63,8 @@ class HttpFactory {
 
 
 }
+
+
 
 const axiosBasic = axios.create(defaultConfig)
 
